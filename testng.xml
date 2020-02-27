@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite">
+<suite name="Suite" parallel="none" allow-return-values="true" >
     <listeners>
 
 
@@ -12,11 +12,12 @@
 
     <test name="Validating User login">
         <classes>
-            <class name="Academy.HomePage"/>
+            <!--<class name="Academy.HomePage"/>-->
+            <class name="Academy.validateTitle"/>
         </classes>
     </test>
 
-    <test name="Validating title in the Page">
+   <!-- <test name="Validating title in the Page">
         <classes>
             <class name="Academy.validateTitle"/>
         </classes>
@@ -30,6 +31,6 @@
         <classes>
             <class name="Academy.QualityAuditTest"/>
         </classes>
-    </test>
+    </test>-->
     <!-- Test -->
 </suite> <!-- Suite -->
