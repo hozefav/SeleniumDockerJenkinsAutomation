@@ -1,10 +1,11 @@
 Feature: Application Login
 
   Scenario: Home page default Login
-    Given User is on Netbanking login page
-    When User login into application with username and password
-    Then Home page is populated
-    And Cards are displayed
+    Given Initialise browser with Chrome
+    And Navigage to "http://www.qaclickacademy.com/" Site
+    And Click on Login link in home page to land on secure sign in Page
+    When User enters "test99@gmail.com" and "123456" and logs in
+    Then Verify that user is successfully logged in
 
 
 

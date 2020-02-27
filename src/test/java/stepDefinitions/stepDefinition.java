@@ -1,32 +1,42 @@
 package stepDefinitions;
 
-import cucumber.api.PendingException;
+import Academy.BaseTest;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.And;
-import cucumber.api.junit.Cucumber;
-import org.junit.runner.RunWith;
+import cucumber.api.java.en.When;
+import pageObjects.LandingPage;
+import pageObjects.LoginPage;
 
-@RunWith(Cucumber.class)
-public class stepDefinition {
-    @Given("^User is on Netbanking login page$")
-    public void user_is_on_netbanking_login_page() throws Throwable {
-        throw new PendingException();
+//@RunWith(Cucumber.class)
+public class stepDefinition extends BaseTest {
+    @Given("^Initialise browser with Chrome$")
+    public void initialise_browser_with_Chrome() throws Throwable {
+        driver = initializeDriver();
     }
 
-    @When("^User login into application with username and password$")
-    public void user_login_into_application_with_username_and_password() throws Throwable {
-        throw new PendingException();
+    @Given("^Navigage to \"([^\"]*)\" Site$")
+    public void navigage_to_Site(String arg1) throws Throwable {
+        driver.get(arg1);
     }
 
-    @Then("^Home page is populated$")
-    public void home_page_is_populated() throws Throwable {
-        throw new PendingException();
+    @Given("^Click on Login link in home page to land on secure sign in Page$")
+    public void click_on_Login_link_in_home_page_to_land_on_secure_sign_in_Page() throws Throwable {
+        LandingPage l=new LandingPage(driver);
+        l.getLogin().click();
     }
 
-    @And("^Cards are displayed$")
-    public void cards_are_displayed() throws Throwable {
-        throw new PendingException();
+    @When("^User enters \"([^\"]*)\" and \"([^\"]*)\" and logs in$")
+    public void user_enters_and_and_logs_in(String arg1, String arg2) throws Throwable {
+        LoginPage lp=new LoginPage(driver);
+        lp.getEmail().sendKeys(arg1);
+        lp.getPassword().sendKeys(arg2);
+        lp.getLogin().click();
     }
+
+    @Then("^Verify that user is successfully logged in$")
+    public void verify_that_user_is_successfully_logged_in() throws Throwable {
+        System.out.println("Validation pending");
+        //Assert.assertTrue(false);
+    }
+
 }
