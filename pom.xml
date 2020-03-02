@@ -66,10 +66,12 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+
+            <!-- THIS PLUGIN BUILDS DOCKER IMAGE WHEN COMMAND: MNV CLEAN PACKAGE -DSkipTests=true IS RUN -->
+            <!--<plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.3.5</version>
+                <version>1.4.0</version>
                 <executions>
                     <execution>
                         <id>default</id>
@@ -80,13 +82,16 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- vinsdocker is org name. -->
-                    <!-- containertest is the name of the image /  application  -->
-                    <repository>vinsdocker/eautomationtest1</repository>
-                    <!-- version of your image: could be sprint11 or release5 etc -->
-                    <tag>googletest</tag>
+                    &lt;!&ndash; vinsdocker is org name. &ndash;&gt;
+                    &lt;!&ndash; containertest is the name of the image /  application  &ndash;&gt;
+                    &lt;!&ndash;<username>hozefavakanerwala</username>
+                    <password>hasoziayfae</password>&ndash;&gt;
+                    <repository>hozedocker/eautomationtest1</repository>
+
+                    &lt;!&ndash; version of your image: could be sprint11 or release5 etc &ndash;&gt;
+                    <tag>onetest</tag>
                 </configuration>
-            </plugin>
+            </plugin>-->
 
         </plugins>
 
