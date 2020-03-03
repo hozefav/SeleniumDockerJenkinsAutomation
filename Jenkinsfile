@@ -20,7 +20,8 @@ pipeline {
 		steps {
 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub',
 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-bat 'docker login -u $USERNAME -p $PASSWORD https://index.docker.io/v1/'
+//bat 'docker login -u $USERNAME -p $PASSWORD https://index.docker.io/v1/'
+	bat 'docker login'
 }
 }
 }
