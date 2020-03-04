@@ -21,6 +21,7 @@ pipeline {
 			        	app.push("${BUILD_NUMBER}")
 			            app.push("latest")
 			        }*/
+			
 			withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 
 docker.withRegistry('', 'dockerhub') {
