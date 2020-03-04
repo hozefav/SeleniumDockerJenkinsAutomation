@@ -19,14 +19,16 @@ public class SimpleTest extends BaseTest {
 	
 	public void base1PageNavigation() throws IOException
 	{
+		System.out.println("Simple Test one from Smoke suite is running ");
 		Assert.assertTrue(true);
-		
+
 		}
 
 	@Test
 
 	public void base2PageNavigation() throws IOException
 	{
+		System.out.println("Simple Test two from Smoke suite is running ");
 		Assert.assertTrue(true);
 
 	}

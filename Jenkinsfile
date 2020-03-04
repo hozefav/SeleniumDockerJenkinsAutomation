@@ -1,8 +1,16 @@
+//variables
+def network='jenkins-%BUILD_NUMBER%'
+def seleniumHub='selenium-hub-%BUILD_NUMBER%'
+def chrome='chrome-%BUILD_NUMBER%'
+def firefox='firefox-%BUILD_NUMBER%'
+def containertest='conatinertest-%BUILD_NUMBER%'
+
 pipeline {
-    agent any
-    
-    stages { 	
-        stage('Build Jar') {
+
+   agent any
+
+   stages{
+       stage('Build Jar') {
             steps {
                 bat 'mvn clean package -DskipTests'
             }
@@ -10,22 +18,41 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                	app = docker.build("hozefavakanerwala/containertest")
+                	app = docker.build("hozefavakanerwala/containertest${BUILD_NUMBER}")
                 }
             }
         }
-        stage('Push Image') {
-            steps {
-                script {
-		    withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    docker.withRegistry('', 'dockerhub') {
-                    bat "docker login -u ${USERNAME} -p ${PASSWORD}"
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
-			        }
-                }
-            }
-        }        
+      stage('Setting Up Selenium Grid') {
+         steps{
+            bat "docker network create ${network}"
+            bat "docker run -d -p 4444:4444 --name ${seleniumHub} --network ${network} selenium/hub"
+            bat "docker run -d -e HUB_PORT_4444_TCP_ADDR=${seleniumHub} -e HUB_PORT_4444_TCP_PORT=4444 --shm-size 2g --network ${network} --name ${chrome} selenium/node-chrome"
+            bat "docker run -d -e HUB_PORT_4444_TCP_ADDR=${seleniumHub} -e HUB_PORT_4444_TCP_PORT=4444 --network ${network} --name ${firefox} selenium/node-firefox"
+         }
+      }
+      stage('Run Test') {
+         steps{
+            //parallel(
+               //"search-module":{
+                  bat "docker run --rm -e SELENIUM_HUB=${seleniumHub} -e MODULE=smoketestng.xml -v ${WORKSPACE}/search:/usr/share/tag/test-output --network ${network} hozefavakanerwala/containertest${BUILD_NUMBER}"
+                  archiveArtifacts artifacts: 'search/**', fingerprint: true
+               //}
+               //,
+               //"order-module":{
+               //   sh "docker run --rm -e SELENIUM_HUB=${seleniumHub} -e BROWSER=chrome -e MODULE=order-module.xml -v ${WORKSPACE}/order:/usr/share/tag/
+               //test-output  --network ${network} vinsdocker/containertest"
+               //   archiveArtifacts artifacts: 'order/**', fingerprint: true
+               //}
+            //)
+         }
+      }
     }
-}
+    post{
+      always {
+         bat "docker rm -vf ${chrome}"
+         bat "docker rm -vf ${firefox}"
+         bat "docker rm -vf ${seleniumHub}"
+         bat "docker network rm ${network}"
+      }
+   }
 }

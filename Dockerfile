@@ -14,4 +14,4 @@ ADD testng.xml testng.xml
 
 # Command line to execute the test
 # ENTRYPOINT ["java", "-cp", "/usr/share/tag/E2EAutomation.jar", "org.testng.TestNG", "-testclass", "validateTitle"]
-ENTRYPOINT java -cp selenium-docker.jar:selenium-docker-tests.jar:libs/* -DseleniumHubHost=$SELENIUM_HUB org.testng.TestNG testng.xml
+ENTRYPOINT java -cp selenium-docker.jar:selenium-docker-tests.jar:libs/* -DseleniumHubHost=$SELENIUM_HUB org.testng.TestNG $MODULE
