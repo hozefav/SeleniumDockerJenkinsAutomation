@@ -17,12 +17,16 @@ pipeline {
         stage('Push Image') {
             steps {
                 script {
-			      // docker.withRegistry('https://registry.hub.docker.com', 'dockerhub')
-			
-			withDockerRegistry([ "hozefavakanerwala": "0ca476f3-44b1-4db5-8444-94fa537a640a", url: "" ]) {			
+			/*docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){		 {			
 			        	app.push("${BUILD_NUMBER}")
 			            app.push("latest")
-			        }
+			        }*/
+			withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+
+docker.withRegistry('', 'dockerhub') {
+bat "docker login -u ${USERNAME} -p ${PASSWORD}"
+app.push("${env.BUILD_NUMBER}")
+app.push("latest")
                 }
             }
         }      
