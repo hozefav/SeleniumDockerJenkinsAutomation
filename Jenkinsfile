@@ -1,36 +1,30 @@
 pipeline {
     agent any
-    stages {
+    }
+    stages { 	
         stage('Build Jar') {
             steps {
-                bat 'mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
         stage('Build Image') {
             steps {
                 script {
-                	app = docker.build("hozefavakanerwala/containertest")
+                	app = docker.build("vinsdocker/containertest")
                 }
             }
         }
- 
         stage('Push Image') {
             steps {
                 script {
-			/*docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){		 {			
-			        	app.push("${BUILD_NUMBER}")
-			            app.push("latest")
-			        }*/
-			
-			withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-
-docker.withRegistry('', 'dockerhub') {
-bat "docker login -u ${USERNAME} -p ${PASSWORD}"
-app.push("${env.BUILD_NUMBER}")
-app.push("latest")
+		    withCredentials([usernamePassword( credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    docker.withRegistry('', 'dockerhub') {
+                    bat "docker login -u ${USERNAME} -p ${PASSWORD}"
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+			        }
                 }
             }
-        }      
+        }        
     }
 }
-    }
