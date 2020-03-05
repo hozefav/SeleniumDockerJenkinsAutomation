@@ -1,0 +1,8 @@
+15:26:54.994 [main] INFO  Academy.BaseTest - Navigation Bar is displayed
+15:27:00.926 [main] INFO  Academy.BaseTest - Driver is initialized
+15:27:04.683 [main] INFO  Academy.BaseTest - Navigated to Audit Login Page
+15:29:34.527 [main] INFO  Academy.BaseTest - Restrcited User
+15:29:49.866 [main] INFO  Academy.BaseTest - Non restricted user
+15:30:01.497 [main] INFO  Academy.BaseTest - Driver is initialized
+15:30:11.075 [main] INFO  Academy.BaseTest - Navigated to Home page
+15:30:11.144 [main] INFO  Academy.BaseTest - Successfully validated Text message

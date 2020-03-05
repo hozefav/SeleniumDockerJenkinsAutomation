@@ -25,7 +25,7 @@ public class QualityAuditTest extends BaseTest {
 		driver.get(prop.getProperty("audit_url"));
 		 log.info("Navigated to Audit Login Page");
 	}
-	@Test
+	//@Test
 	
 	public void qualityAudit() throws IOException, InterruptedException {
         SN_AuditHubLoginPage loginPage = new SN_AuditHubLoginPage(driver);

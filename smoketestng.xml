@@ -13,7 +13,7 @@
     <test name="Validating User login">
         <classes>
             <!--<class name="Academy.HomePage"/>-->
-            <class name="Academy.validateTitle"/>
+            <class name="Academy.SimpleTest"/>
         </classes>
     </test>
 

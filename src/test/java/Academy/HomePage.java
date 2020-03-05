@@ -30,7 +30,8 @@ public class HomePage extends BaseTest {
 		//one is inheritance
 
 		// creating object to that class and invoke methods of it
-		driver.get(prop.getProperty("url"));
+		//driver.get(prop.getProperty("url"));
+		driver.get("http://qaclickacademy.com");
 		LandingPage l=new LandingPage(driver);
 		l.getLogin().click(); //driver.findElement(By.css()
 		LoginPage lp=new LoginPage(driver);
