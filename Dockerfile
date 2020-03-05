@@ -9,8 +9,8 @@ WORKDIR /usr/share/tag
 ADD  target/selenium-docker.jar selenium-docker.jar
 ADD  target/selenium-docker-tests.jar selenium-docker-tests.jar
 ADD  target/libs libs
-#ADD  target/libs libs
 ADD testng.xml testng.xml
+ADD smoketestng.xml smoketestng.xml
 
 # Command line to execute the test
 # ENTRYPOINT ["java", "-cp", "/usr/share/tag/E2EAutomation.jar", "org.testng.TestNG", "-testclass", "validateTitle"]
