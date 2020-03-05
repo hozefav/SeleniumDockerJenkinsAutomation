@@ -32,18 +32,16 @@ pipeline {
       }
       stage('Run Test') {
          steps{
-            //parallel(
-               //"search-module":{
-                  bat "docker run --rm -e SELENIUM_HUB=${seleniumHub} -e MODULE=smoketestng.xml -v ${WORKSPACE}/search:/usr/share/tag/test-output --network ${network} hozefavakanerwala/containertest${BUILD_NUMBER}"
-                  archiveArtifacts artifacts: 'search/**', fingerprint: true
-               //}
-               //,
-               //"order-module":{
-               //   sh "docker run --rm -e SELENIUM_HUB=${seleniumHub} -e BROWSER=chrome -e MODULE=order-module.xml -v ${WORKSPACE}/order:/usr/share/tag/
-               //test-output  --network ${network} vinsdocker/containertest"
-               //   archiveArtifacts artifacts: 'order/**', fingerprint: true
-               //}
-            //)
+            parallel(
+               "smoke-module":{
+                  bat "docker run --rm -e SELENIUM_HUB=${seleniumHub} -e MODULE=smoketestng.xml -v ${WORKSPACE}/smoke:/usr/share/tag/test-output --network ${network} hozefavakanerwala/containertest${BUILD_NUMBER}"
+                  archiveArtifacts artifacts: 'smoke/**', fingerprint: true
+               },
+               "regression-module":{
+                  bat "docker run --rm -e SELENIUM_HUB=${seleniumHub} -e MODULE=testng.xml -v ${WORKSPACE}/regression:/usr/share/tag/test-output  --network ${network} hozefavakanerwala/containertest${BUILD_NUMBER}"
+                  archiveArtifacts artifacts: 'regression/**', fingerprint: true
+               }
+            )
          }
       }
     }
